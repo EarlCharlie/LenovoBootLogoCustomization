@@ -381,7 +381,7 @@ namespace LogoDiy
 						Console.WriteLine("gobalsettings: " + text2);
 						string text3 = text2.Replace("bootuxdisabled", "").Trim();
 						IsShowLodingIco = text3.Contains("No");
-						LogoDiy.LogHelper.Info($"{text2}; 載入系統圖示 = {IsShowLodingIco}");
+						LogoDiy.LogHelper.Info($"{text2}; 加载系统图标 = {IsShowLodingIco}");
 						flag = false;
 					}
 				}
@@ -541,7 +541,7 @@ namespace LogoDiy
 				LogoDiy.LogHelper.Info($"set logoinfo error: ret = {num}");
 				return;
 			}
-			ShowSuccessText = "Done! Restored to default settings.\n預設設定恢復成功";
+			ShowSuccessText = "成功恢复默认设置";
 			ShowSuccessTip = true;
 			FunEnable = false;
 		}
@@ -617,7 +617,7 @@ namespace LogoDiy
 				{
 					LogoDiy.LogHelper.Info("Set CRC success");
 					ChangeEFIDisk(mount: false);
-					ShowSuccessText = "Success! You can restart to view the new boot logo now.\n設定成功，請重新啟動電腦檢視效果";
+					ShowSuccessText = "设置成功！请重新启动计算机以查看设置效果";
 					ShowSuccessTip = true;
 				}
 				else
@@ -833,7 +833,7 @@ namespace LogoDiy
 			ShowSuccessTip = false;
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 			openFileDialog.Multiselect = false;
-			openFileDialog.Title = "Please select an image / 請選擇圖片";
+			openFileDialog.Title = "选择设置图片";
 			openFileDialog.Filter = $"Image({filter1})|{filter2}";
 			var res = openFileDialog.ShowDialog();
 			if (res == DialogResult.OK)
@@ -845,27 +845,28 @@ namespace LogoDiy
 				if (!ImageCheck(fileName))
 				{
 					ShowWarning = true;
-					ShowWarnInfo = "The selected file is not an image!\n當前選擇的檔案不是圖片，請重試！";
+					ShowWarnInfo = "所选文件不是图片，请重新选择！";
 					return;
 				}
 				if (fileInfo.Length > DiskFreeSpace)
 				{
 					int num = (int)(DiskFreeSpace / 1024 / 1024);
-					ShowWarnInfo = $"Image must not exceed {num}MB!\n圖片不得超過{num}MB，請重新選擇！";
+					ShowWarnInfo = $"图片不得超过{num}MB，请重新选择！";
 					ShowWarning = true;
 					return;
 				}
 				if (IsSizeExceed(fileName))
 				{
-					ShowWarnInfo = "The image exceeds the maximum resolution!\n圖片超出最大解析度，請重新選擇！";
+					ShowWarnInfo = "图片尺寸过大，请重新选择！";
 					ShowWarning = true;
 					return;
 				}
+				imagePath1 = fileName;
 				GetBitmapImage(fileName);
 				SetImageSize(fileName);
 				FunEnable = true;
 				ShowWarning = false;
-				LogoDiy.LogHelper.Info($"介面圖片大小>>height = {ImageHeight}; width = {ImageWidth};");
+				LogoDiy.LogHelper.Info($"界面图片大小>>height = {ImageHeight}; width = {ImageWidth};");
 			}
 		}
 

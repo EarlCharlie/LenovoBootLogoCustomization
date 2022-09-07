@@ -37,6 +37,7 @@ namespace LogoDiy
         private void button1_Click(object sender, EventArgs e)
         {
             LogoDiyViewModel.Instance.SelectedImageClick();
+            this.pictureBox1.Load(LogoDiyViewModel.Instance.ImagePath1);
             showTip();
         }
 
